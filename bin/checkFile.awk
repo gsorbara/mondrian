@@ -249,8 +249,6 @@ FNR == 1 {
     prevImportGroup = importGroup;
 }
 /^\/\/ Copyright .* Pentaho/ && strict > 1 {
-    # We assume that '--strict' is only invoked on files currently being
-    # edited. Therefore we would expect the copyright to be current.
     if ($0 !~ /-2012/) {
         error(fname, FNR, "copyright is not current");
     }
@@ -671,7 +669,8 @@ s ~ / throws\>/ {
 }
 length($0) > maxLineLength                      \
 && $0 !~ /@(throws|see|link)/                   \
-&& $0 !~ /\$Id$0 !~ /^import /                             \
+&& $0 !~ /[$]Id: /                              \
+&& $0 !~ /^import /                             \
 && $0 !~ /http:/                                \
 && $0 !~ /\/\/ Expect "/                        \
 && s !~ /^ *(\+ |<< )?string\)?[;,]?$/ {

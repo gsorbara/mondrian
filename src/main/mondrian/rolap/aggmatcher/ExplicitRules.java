@@ -656,7 +656,11 @@ RME TODO
 
                     List<Id.Segment> names = Util.parseIdentifier(name);
                     // must be [hierarchy usage name].[level name]
-                    if (names.size() != 2) {
+                    if (!(names.size() == 2
+                          || MondrianProperties.instance().SsasCompatibleNaming
+                                 .get()
+                             && names.size() == 3))
+                    {
                         msgRecorder.reportError(
                             mres.BadLevelNameFormat.str(
                                 msgRecorder.getContext(),
